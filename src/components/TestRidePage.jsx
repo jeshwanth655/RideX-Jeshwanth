@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './TestRidePage.css';
 
 const TestRidePage = () => {
   const [pickup, setPickup] = useState('');
@@ -31,17 +32,17 @@ const TestRidePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+    <div className="ride-page-container">
+      <div className="container mx-auto px-4 py-8 fade-in">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Book Your Ride</h1>
-          <p className="text-gray-600">Fast, reliable, and affordable transportation</p>
+        <div className="text-center mb-8 slide-up">
+          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">Book Your Ride</h1>
+          <p className="text-white/90 text-lg drop-shadow">Fast, reliable, and affordable transportation</p>
         </div>
 
         <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-8">
           {/* Booking Form */}
-          <div className="bg-white rounded-2xl shadow-xl p-6">
+          <div className="glass-card rounded-2xl p-6 slide-up">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Trip Details</h2>
             
             <div className="space-y-4">
@@ -55,7 +56,7 @@ const TestRidePage = () => {
                   value={pickup}
                   onChange={(e) => setPickup(e.target.value)}
                   placeholder="Enter pickup address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="input-field w-full px-4 py-3 rounded-lg"
                 />
               </div>
 
@@ -69,7 +70,7 @@ const TestRidePage = () => {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                   placeholder="Enter destination address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="input-field w-full px-4 py-3 rounded-lg"
                 />
               </div>
 
@@ -82,7 +83,7 @@ const TestRidePage = () => {
                   <select
                     value={passengers}
                     onChange={(e) => setPassengers(Number(e.target.value))}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-field w-full px-4 py-3 rounded-lg"
                   >
                     {[1, 2, 3, 4, 5, 6].map(num => (
                       <option key={num} value={num}>{num} passenger{num > 1 ? 's' : ''}</option>
@@ -98,7 +99,7 @@ const TestRidePage = () => {
                     type="datetime-local"
                     value={scheduledTime}
                     onChange={(e) => setScheduledTime(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-field w-full px-4 py-3 rounded-lg"
                   />
                 </div>
               </div>
@@ -106,7 +107,7 @@ const TestRidePage = () => {
           </div>
 
           {/* Ride Options */}
-          <div className="bg-white rounded-2xl shadow-xl p-6">
+          <div className="glass-card rounded-2xl p-6 slide-up">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Choose Your Ride</h2>
             
             <div className="space-y-3">
@@ -114,10 +115,10 @@ const TestRidePage = () => {
                 <div
                   key={type.id}
                   onClick={() => setRideType(type.id)}
-                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all hover:shadow-md ${
+                  className={`ride-option p-4 rounded-xl border-2 ${
                     rideType === type.id
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'selected'
+                      : 'border-gray-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -140,15 +141,15 @@ const TestRidePage = () => {
             <button
               onClick={handleBookRide}
               disabled={isBooking}
-              className={`w-full mt-6 py-4 px-6 rounded-xl font-semibold text-white transition-all ${
+              className={`book-button w-full mt-6 py-4 px-6 rounded-xl font-semibold text-white ${
                 isBooking
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 shadow-lg hover:shadow-xl'
+                  ? ''
+                  : 'pulse-glow'
               }`}
             >
               {isBooking ? (
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <div className="loading-spinner rounded-full h-5 w-5 border-b-2 border-white"></div>
                   <span>Booking Your Ride...</span>
                 </div>
               ) : (
@@ -159,22 +160,22 @@ const TestRidePage = () => {
         </div>
 
         {/* Features Section */}
-        <div className="max-w-4xl mx-auto mt-12">
+        <div className="max-w-4xl mx-auto mt-12 slide-up">
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg">
-              <div className="text-3xl mb-3">⚡</div>
+            <div className="feature-card rounded-xl p-6 text-center shadow-lg">
+              <div className="feature-icon">⚡</div>
               <h3 className="font-semibold text-gray-800 mb-2">Fast Pickup</h3>
               <p className="text-gray-600 text-sm">Average pickup time under 5 minutes</p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg">
-              <div className="text-3xl mb-3">🛡️</div>
+            <div className="feature-card rounded-xl p-6 text-center shadow-lg">
+              <div className="feature-icon">🛡️</div>
               <h3 className="font-semibold text-gray-800 mb-2">Safe & Secure</h3>
               <p className="text-gray-600 text-sm">All drivers are background checked</p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 text-center shadow-lg">
-              <div className="text-3xl mb-3">💰</div>
+            <div className="feature-card rounded-xl p-6 text-center shadow-lg">
+              <div className="feature-icon">💰</div>
               <h3 className="font-semibent text-gray-800 mb-2">Fair Pricing</h3>
               <p className="text-gray-600 text-sm">No surge pricing, transparent costs</p>
             </div>
